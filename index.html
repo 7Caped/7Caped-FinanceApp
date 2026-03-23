@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Penny · Finance Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 
@@ -329,6 +330,246 @@ a{text-decoration:none;color:inherit;}
 .empty-title{font-size:17px;font-weight:700;color:var(--txt2);}
 .empty-sub{font-size:14px;text-align:center;line-height:1.5;}
 
+/* TUTORIAL / ONBOARDING */
+.tutorial-overlay{position:fixed;inset:0;z-index:500;background:var(--bg);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .4s var(--ease-out);}
+.tutorial-overlay.visible{opacity:1;pointer-events:all;}
+.tutorial-skip{position:absolute;top:max(20px,env(safe-area-inset-top));right:20px;padding:8px 16px;border-radius:var(--r-pill);background:var(--surface2);border:1px solid var(--border);color:var(--txt2);font-size:14px;font-weight:600;font-family:var(--font);z-index:2;transition:background .15s,color .15s;}
+.tutorial-skip:active{background:var(--border2);color:var(--txt);}
+.tutorial-slides{flex:1;display:flex;overflow:hidden;position:relative;}
+.tutorial-slide{width:100%;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 32px 0;transform:translateX(100%);position:absolute;inset:0;transition:transform .5s var(--ease-spring),opacity .35s;opacity:0;}
+.tutorial-slide.active{transform:translateX(0);opacity:1;position:relative;}
+.tutorial-slide.exit-left{transform:translateX(-60px);opacity:0;position:absolute;}
+.tut-illus{flex:1;width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.tut-illus-inner{position:relative;display:flex;align-items:center;justify-content:center;width:280px;height:280px;}
+.tut-blob{position:absolute;inset:0;border-radius:50%;filter:blur(60px);opacity:.35;animation:blobPulse 3s ease-in-out infinite alternate;}
+@keyframes blobPulse{from{transform:scale(0.9);}to{transform:scale(1.1);}}
+.tut-icon-ring{width:140px;height:140px;border-radius:40px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;border:1.5px solid rgba(255,255,255,0.12);}
+.tut-icon-ring .material-symbols-rounded{font-size:68px;color:#fff;font-variation-settings:'FILL' 1,'wght' 400;}
+.tut-chip{position:absolute;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);white-space:nowrap;z-index:2;}
+.tut-chip .material-symbols-rounded{font-size:15px;font-variation-settings:'FILL' 1;}
+.tut-chip-1{animation:chipFloat1 3.2s ease-in-out infinite alternate;}
+.tut-chip-2{animation:chipFloat2 2.8s ease-in-out infinite alternate;}
+.tut-chip-3{animation:chipFloat3 3.6s ease-in-out infinite alternate;}
+@keyframes chipFloat1{from{transform:translateY(0) rotate(-2deg);}to{transform:translateY(-10px) rotate(2deg);}}
+@keyframes chipFloat2{from{transform:translateY(0) rotate(1deg);}to{transform:translateY(-8px) rotate(-2deg);}}
+@keyframes chipFloat3{from{transform:translateY(0) rotate(-1deg);}to{transform:translateY(-12px) rotate(2deg);}}
+.tut-text{width:100%;padding-bottom:20px;}
+.tut-step-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);margin-bottom:10px;}
+.tut-title{font-size:30px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:var(--txt);margin-bottom:12px;}
+.tut-desc{font-size:16px;font-weight:400;line-height:1.6;color:var(--txt2);}
+.tutorial-footer{padding:16px 24px max(28px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;flex-shrink:0;}
+.tut-dots{display:flex;justify-content:center;gap:6px;}
+.tut-dot{width:6px;height:6px;border-radius:50%;background:var(--txt3);transition:all .3s var(--ease-spring);}
+.tut-dot.active{width:20px;border-radius:3px;}
+.tut-btn-row{display:flex;gap:12px;}
+.tut-btn-next{flex:1;padding:17px;border-radius:18px;font-size:17px;font-weight:700;font-family:var(--font);color:#fff;border:none;transition:transform .15s var(--ease-spring),opacity .1s;}
+.tut-btn-next:active{transform:scale(0.97);opacity:.9;}
+.tut-btn-back{width:54px;height:54px;border-radius:18px;background:var(--surface2);border:1px solid var(--border);color:var(--txt2);font-family:var(--font);display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;}
+.tut-btn-back:active{background:var(--border2);}
+.tut-btn-back .material-symbols-rounded{font-size:22px;}
+
+/* SCAN SHEET */
+.scan-drop-zone{
+  margin:0 20px;border-radius:24px;
+  border:2px dashed var(--border2);
+  background:var(--input-bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;padding:36px 24px;cursor:pointer;
+  transition:border-color .2s,background .2s;
+  position:relative;overflow:hidden;
+}
+.scan-drop-zone:active,.scan-drop-zone.drag-over{border-color:var(--blue);background:var(--blue-s);}
+.scan-drop-zone-icon{width:64px;height:64px;border-radius:20px;background:var(--blue-s);display:flex;align-items:center;justify-content:center;}
+.scan-drop-zone-icon .material-symbols-rounded{font-size:32px;color:var(--blue);font-variation-settings:'FILL' 1;}
+.scan-drop-zone-title{font-size:17px;font-weight:700;color:var(--txt);}
+.scan-drop-zone-sub{font-size:14px;font-weight:500;color:var(--txt2);text-align:center;line-height:1.5;}
+
+.scan-or-row{display:flex;align-items:center;gap:12px;padding:16px 20px;color:var(--txt3);font-size:13px;font-weight:600;}
+.scan-or-row::before,.scan-or-row::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.scan-source-row{display:flex;gap:10px;padding:0 20px 16px;}
+.scan-source-btn{flex:1;padding:14px 10px;border-radius:18px;background:var(--surface2);border:1.5px solid var(--border);color:var(--txt2);font-size:13px;font-weight:700;font-family:var(--font);display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s;}
+.scan-source-btn:active{background:var(--border2);}
+.scan-source-btn .material-symbols-rounded{font-size:26px;color:var(--blue);}
+
+/* Scan preview */
+.scan-preview-wrap{margin:0 20px;border-radius:20px;overflow:hidden;position:relative;background:var(--bg3);max-height:220px;}
+.scan-preview-img{width:100%;max-height:220px;object-fit:cover;display:block;}
+.scan-preview-badge{position:absolute;top:10px;right:10px;padding:5px 12px;border-radius:99px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px;}
+.scan-preview-badge .material-symbols-rounded{font-size:14px;font-variation-settings:'FILL' 1;}
+
+/* Scan result review */
+.scan-result-card{margin:0 20px;border-radius:20px;padding:20px;background:var(--surface2);border:1px solid var(--border);}
+.scan-result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.scan-result-row:last-child{border-bottom:none;}
+.scan-result-label{font-size:13px;font-weight:600;color:var(--txt2);}
+.scan-result-val{font-size:15px;font-weight:700;color:var(--txt);}
+.scan-result-amount{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--red);}
+
+/* Processing animation */
+.scan-processing{display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 24px;}
+.scan-spinner{width:56px;height:56px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--blue);animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.scan-processing-text{font-size:16px;font-weight:600;color:var(--txt2);text-align:center;}
+.scan-processing-sub{font-size:13px;color:var(--txt3);text-align:center;}
+
+/* Edit fields in scan result */
+.scan-edit-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.scan-edit-label{font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;}
+.scan-edit-input{background:var(--input-bg);border:1.5px solid var(--border);border-radius:14px;padding:12px 16px;font-size:16px;font-weight:600;color:var(--txt);font-family:var(--font);width:100%;transition:border-color .2s;}
+.scan-edit-input:focus{border-color:var(--blue);outline:none;}
+
+/* ══════════════════════════════
+   SCANNER SHEET
+══════════════════════════════ */
+.scanner-sheet{position:fixed;left:0;right:0;bottom:0;z-index:201;max-width:430px;margin:0 auto;
+  background:var(--sheet-bg);border-radius:28px 28px 0 0;
+  transform:translateY(100%);transition:transform .45s var(--ease-spring);
+  padding-bottom:max(16px,env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;max-height:95dvh;overflow:hidden;}
+[data-theme="dark"] .scanner-sheet{background:#0e0e1a;border-top:1px solid rgba(255,255,255,0.10);}
+.scanner-sheet.open{transform:translateY(0);}
+
+/* Camera viewfinder */
+.scanner-viewfinder{
+  position:relative;width:100%;background:#000;
+  flex-shrink:0;overflow:hidden;
+}
+.scanner-viewfinder video{width:100%;height:100%;object-fit:cover;display:block;}
+.scanner-viewfinder canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+
+/* Scan frame overlay */
+.scan-frame{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.scan-frame-inner{
+  width:240px;height:240px;position:relative;
+}
+.scan-corner{position:absolute;width:28px;height:28px;}
+.scan-corner::before,.scan-corner::after{content:'';position:absolute;background:#fff;border-radius:2px;}
+.scan-corner.tl{top:0;left:0;}
+.scan-corner.tl::before{top:0;left:0;width:100%;height:3px;}
+.scan-corner.tl::after{top:0;left:0;width:3px;height:100%;}
+.scan-corner.tr{top:0;right:0;}
+.scan-corner.tr::before{top:0;right:0;width:100%;height:3px;}
+.scan-corner.tr::after{top:0;right:0;width:3px;height:100%;}
+.scan-corner.bl{bottom:0;left:0;}
+.scan-corner.bl::before{bottom:0;left:0;width:100%;height:3px;}
+.scan-corner.bl::after{bottom:0;left:0;width:3px;height:100%;}
+.scan-corner.br{bottom:0;right:0;}
+.scan-corner.br::before{bottom:0;right:0;width:100%;height:3px;}
+.scan-corner.br::after{bottom:0;right:0;width:3px;height:100%;}
+
+/* Scan line animation */
+.scan-line{
+  position:absolute;left:3px;right:3px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  box-shadow:0 0 8px var(--blue);
+  border-radius:1px;
+  animation:scanLine 2s ease-in-out infinite;
+}
+@keyframes scanLine{
+  0%{top:8px;opacity:0.5;}
+  50%{top:calc(100% - 10px);opacity:1;}
+  100%{top:8px;opacity:0.5;}
+}
+
+/* Dim overlay around frame */
+.scan-dim{position:absolute;inset:0;background:rgba(0,0,0,0.55);pointer-events:none;}
+.scan-dim-hole{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:240px;height:240px;
+  box-shadow:0 0 0 9999px rgba(0,0,0,0.55);
+  border-radius:12px;
+}
+
+/* Mode tabs */
+.scan-mode-tabs{
+  display:flex;gap:0;
+  background:var(--input-bg);border-radius:14px;margin:14px 18px 0;
+  padding:3px;flex-shrink:0;
+}
+.scan-mode-tab{
+  flex:1;padding:9px 8px;border-radius:11px;
+  font-size:13px;font-weight:700;color:var(--txt2);
+  background:none;border:none;font-family:var(--font);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background .2s,color .2s;
+}
+.scan-mode-tab .material-symbols-rounded{font-size:16px;font-variation-settings:'FILL' 1;}
+.scan-mode-tab.active{background:var(--surface2);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,0.15);}
+
+/* Status / hint */
+.scan-hint{
+  padding:10px 20px 4px;
+  font-size:13px;font-weight:600;color:var(--txt2);text-align:center;
+  min-height:36px;flex-shrink:0;
+}
+
+/* Result preview card */
+.scan-result-card{
+  margin:8px 18px;border-radius:18px;
+  padding:16px 18px;
+  border:1.5px solid var(--border);background:var(--surface2);
+  display:none;flex-shrink:0;
+}
+.scan-result-card.visible{display:block;}
+.src-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.src-label{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;}
+.src-val{font-size:15px;font-weight:700;}
+.src-amount{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--red);margin:4px 0 8px;}
+
+/* Photo result area */
+.scan-photo-preview{
+  position:relative;flex-shrink:0;
+  overflow:hidden;border-radius:0;
+}
+.scan-photo-preview img{width:100%;max-height:200px;object-fit:contain;background:#000;display:block;}
+.scan-photo-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,0.5);
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(2px);
+}
+.scan-photo-overlay.hidden{display:none;}
+.scan-analyzing{display:flex;flex-direction:column;align-items:center;gap:10px;color:#fff;}
+.scan-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Bottom action */
+.scan-actions{padding:10px 18px 4px;display:flex;gap:10px;flex-shrink:0;}
+.scan-action-btn{
+  flex:1;padding:15px;border-radius:16px;
+  font-size:16px;font-weight:700;font-family:var(--font);border:none;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .12s var(--ease-spring),opacity .1s;
+}
+.scan-action-btn:active{transform:scale(0.97);opacity:.9;}
+.scan-action-btn .material-symbols-rounded{font-size:19px;}
+
+/* API key setup banner */
+.scan-api-banner{
+  margin:12px 18px 4px;padding:14px 16px;border-radius:16px;
+  background:var(--orange-s);border:1.5px solid rgba(255,149,0,.3);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.scan-api-banner .material-symbols-rounded{color:var(--orange);font-size:22px;flex-shrink:0;font-variation-settings:'FILL' 1;}
+.scan-api-banner-text{flex:1;font-size:13px;font-weight:500;line-height:1.5;color:var(--txt2);}
+.scan-api-banner-text strong{color:var(--txt);font-weight:700;}
+.scan-api-btn{padding:6px 14px;border-radius:99px;background:var(--orange);color:#fff;font-size:12px;font-weight:700;font-family:var(--font);border:none;margin-top:8px;display:inline-block;}
+
+/* API Key input in settings */
+.api-key-input{
+  width:100%;background:var(--input-bg);border:1.5px solid var(--border);
+  border-radius:12px;padding:11px 14px;
+  font-size:14px;font-weight:500;color:var(--txt);font-family:var(--font);
+  transition:border-color .2s;letter-spacing:.5px;
+}
+.api-key-input:focus{border-color:var(--blue);outline:none;}
+
 /* TXN DETAIL SHEET */
 .txn-detail-header{display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 24px 16px;}
 .txn-detail-icon{width:64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
@@ -370,6 +611,9 @@ a{text-decoration:none;color:inherit;}
       <div class="page-header">
         <div class="page-title">Übersicht</div>
         <div class="header-actions">
+          <button class="icon-btn" onclick="openScanSheet()" title="Kassenbon scannen">
+            <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0">document_scanner</span>
+          </button>
           <button class="icon-btn" onclick="toggleTheme()">
             <span class="material-symbols-rounded" id="theme-icon" style="font-variation-settings:'FILL' 1">dark_mode</span>
           </button>
@@ -539,6 +783,24 @@ a{text-decoration:none;color:inherit;}
         </div>
       </div>
 
+      <!-- Scanner / AI -->
+      <div class="settings-section">
+        <div class="sg-header">KI · Kassenbon-Scanner</div>
+        <div class="settings-group card">
+          <div class="settings-row" onclick="openApiKeySheet()">
+            <div class="sr-icon" style="background:var(--orange)"><span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1">key</span></div>
+            <span class="sr-label">Anthropic API-Key</span>
+            <span class="sr-right" id="api-key-status" style="font-size:12px;font-weight:700;color:var(--green)"></span>
+            <span class="sr-right"><span class="material-symbols-rounded">chevron_right</span></span>
+          </div>
+          <div class="settings-row" onclick="openScanSheet()">
+            <div class="sr-icon" style="background:var(--blue)"><span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1">document_scanner</span></div>
+            <span class="sr-label">Kassenbon scannen</span>
+            <span class="sr-right"><span class="material-symbols-rounded">chevron_right</span></span>
+          </div>
+        </div>
+      </div>
+
       <!-- Appearance -->
       <div class="settings-section">
         <div class="sg-header">Erscheinungsbild</div>
@@ -577,7 +839,7 @@ a{text-decoration:none;color:inherit;}
         <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0">receipt_long</span>
         <span class="nav-label">Einträge</span>
       </button>
-      <button class="nav-fab" onclick="openAddSheet()">
+      <button class="nav-fab" id="nav-fab" onclick="openAddSheet()" oncontextmenu="event.preventDefault();openScanSheet()">
         <span class="material-symbols-rounded">add</span>
       </button>
       <button class="nav-item" id="nav-budget" onclick="switchPage('budget')">
@@ -917,6 +1179,287 @@ a{text-decoration:none;color:inherit;}
     </div>
     <div style="padding:8px 20px 28px">
       <button onclick="saveTxnEdit()" style="width:100%;padding:16px;border-radius:16px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;font-family:var(--font);border:none;box-shadow:0 4px 16px rgba(0,122,255,.35)">Änderungen speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCANNER SHEET ══ -->
+<div class="sheet-overlay" id="scan-overlay" onclick="closeScanSheet()"></div>
+<div class="scanner-sheet" id="scan-sheet">
+  <div class="sheet-handle"></div>
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 18px 4px;flex-shrink:0">
+    <span style="font-size:18px;font-weight:800;letter-spacing:-.5px">Kassenbon scannen</span>
+    <button class="sheet-close-btn" onclick="closeScanSheet()"><span class="material-symbols-rounded">close</span></button>
+  </div>
+
+  <!-- Mode tabs -->
+  <div class="scan-mode-tabs">
+    <button class="scan-mode-tab active" id="scan-tab-photo" onclick="setScanMode('photo')">
+      <span class="material-symbols-rounded">photo_camera</span>Foto / KI
+    </button>
+    <button class="scan-mode-tab" id="scan-tab-barcode" onclick="setScanMode('barcode')">
+      <span class="material-symbols-rounded">barcode_scanner</span>Barcode
+    </button>
+    <button class="scan-mode-tab" id="scan-tab-upload" onclick="setScanMode('upload')">
+      <span class="material-symbols-rounded">image</span>Galerie
+    </button>
+  </div>
+
+  <!-- API key missing banner (shown if no key set) -->
+  <div class="scan-api-banner" id="scan-api-banner" style="display:none">
+    <span class="material-symbols-rounded">info</span>
+    <div class="scan-api-banner-text">
+      <strong>Kein API-Key hinterlegt.</strong><br>Für die KI-Erkennung wird ein Anthropic API-Key benötigt.
+      <br><button class="scan-api-btn" onclick="closeScanSheet();openApiKeySheet()">Jetzt einrichten →</button>
+    </div>
+  </div>
+
+  <!-- Camera viewfinder (barcode mode) -->
+  <div class="scanner-viewfinder" id="scan-viewfinder" style="height:260px;display:none">
+    <video id="scan-video" playsinline autoplay muted></video>
+    <canvas id="scan-canvas" style="display:none"></canvas>
+    <!-- dim overlay with hole -->
+    <div class="scan-dim"><div class="scan-dim-hole"></div></div>
+    <!-- frame corners -->
+    <div class="scan-frame">
+      <div class="scan-frame-inner">
+        <div class="scan-corner tl"></div>
+        <div class="scan-corner tr"></div>
+        <div class="scan-corner bl"></div>
+        <div class="scan-corner br"></div>
+        <div class="scan-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo preview (photo/upload mode after capture) -->
+  <div class="scan-photo-preview" id="scan-photo-preview" style="display:none">
+    <img id="scan-photo-img" src="" alt="Kassenbon"/>
+    <div class="scan-photo-overlay" id="scan-analyzing-overlay">
+      <div class="scan-analyzing">
+        <div class="scan-spinner"></div>
+        <span style="font-size:14px;font-weight:600">KI analysiert…</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hint text -->
+  <div class="scan-hint" id="scan-hint">Foto aufnehmen oder Barcode scannen</div>
+
+  <!-- Result card -->
+  <div class="scan-result-card" id="scan-result-card">
+    <div class="src-row">
+      <span class="src-label">Erkannter Betrag</span>
+      <button onclick="editScanResult()" style="background:none;border:none;color:var(--blue);font-size:13px;font-weight:700;font-family:var(--font)">Bearbeiten</button>
+    </div>
+    <div class="src-amount" id="src-amount">—</div>
+    <div class="src-row" style="margin-bottom:4px">
+      <span class="src-label">Händler</span>
+      <span class="src-val" id="src-merchant">—</span>
+    </div>
+    <div class="src-row" style="margin-bottom:4px">
+      <span class="src-label">Datum</span>
+      <span class="src-val" id="src-date">—</span>
+    </div>
+    <div class="src-row">
+      <span class="src-label">Kategorie</span>
+      <span class="src-val" id="src-cat">—</span>
+    </div>
+    <!-- Amount edit row (hidden by default) -->
+    <div id="src-amount-edit" style="display:none;margin-top:10px">
+      <input id="src-amount-input" type="number" inputmode="decimal" step="0.01" placeholder="Betrag" class="txn-edit-input" style="margin-bottom:8px"/>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="scan-actions" id="scan-actions">
+    <!-- dynamically rendered -->
+  </div>
+
+  <!-- Hidden file input for gallery upload -->
+  <input type="file" id="scan-file-input" accept="image/*" style="display:none" onchange="onScanFileSelected(event)"/>
+</div>
+
+<!-- ══ API KEY SHEET ══ -->
+<div class="sheet-overlay" id="api-key-overlay" onclick="closeApiKeySheet()"></div>
+<div class="add-sheet" id="api-key-sheet" style="max-height:70dvh">
+  <div class="sheet-handle"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px 14px">
+    <span style="font-size:18px;font-weight:800;letter-spacing:-.5px">Anthropic API-Key</span>
+    <button class="sheet-close-btn" onclick="closeApiKeySheet()"><span class="material-symbols-rounded">close</span></button>
+  </div>
+  <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:14px">
+    <div style="background:var(--blue-s);border:1.5px solid rgba(0,122,255,.25);border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.6;color:var(--txt2)">
+      <span style="font-weight:700;color:var(--blue)">Wie bekomme ich einen API-Key?</span><br>
+      1. Gehe zu <strong style="color:var(--txt)">console.anthropic.com</strong><br>
+      2. Erstelle einen Account &amp; ein API-Key<br>
+      3. Kopiere den Key (beginnt mit <code style="color:var(--orange)">sk-ant-</code>)<br>
+      <span style="font-size:12px;color:var(--txt3);margin-top:6px;display:block">⚠️ Der Key wird nur lokal in deinem Browser gespeichert.</span>
+    </div>
+    <input class="api-key-input" id="api-key-field" type="password" placeholder="sk-ant-api03-…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+    <div style="display:flex;gap:10px">
+      <button onclick="clearApiKey()" style="padding:14px 18px;border-radius:14px;background:var(--red-s);color:var(--red);font-size:15px;font-weight:700;font-family:var(--font);border:none">Löschen</button>
+      <button onclick="saveApiKey()" style="flex:1;padding:15px;border-radius:14px;background:var(--blue);color:#fff;font-size:16px;font-weight:700;font-family:var(--font);border:none;box-shadow:0 4px 16px rgba(0,122,255,.3)">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TUTORIAL OVERLAY ══ -->
+<div class="tutorial-overlay" id="tutorial-overlay">
+  <button class="tutorial-skip" onclick="skipTutorial()">Überspringen</button>
+
+  <div class="tutorial-slides" id="tut-slides">
+
+    <!-- Slide 0: Welcome -->
+    <div class="tutorial-slide active" id="tut-0">
+      <div class="tut-illus">
+        <div class="tut-illus-inner">
+          <div class="tut-blob" style="background:var(--blue)"></div>
+          <div class="tut-icon-ring" style="background:rgba(0,122,255,0.25)">
+            <span class="material-symbols-rounded" style="font-size:72px">currency_exchange</span>
+          </div>
+          <div class="tut-chip tut-chip-1" style="top:20px;right:0px;background:rgba(52,199,89,0.18);color:var(--green)">
+            <span class="material-symbols-rounded">savings</span>Sparen
+          </div>
+          <div class="tut-chip tut-chip-2" style="bottom:30px;left:-10px;background:rgba(0,122,255,0.18);color:var(--blue)">
+            <span class="material-symbols-rounded">account_balance</span>Konten
+          </div>
+          <div class="tut-chip tut-chip-3" style="top:60px;left:-20px;background:rgba(255,149,0,0.18);color:var(--orange)">
+            <span class="material-symbols-rounded">pie_chart</span>Budget
+          </div>
+        </div>
+      </div>
+      <div class="tut-text">
+        <div class="tut-step-label">Willkommen</div>
+        <div class="tut-title">Dein Finanz-Assistent</div>
+        <div class="tut-desc">Penny hilft dir, Einnahmen & Ausgaben im Blick zu behalten — einfach, schnell und übersichtlich.</div>
+      </div>
+    </div>
+
+    <!-- Slide 1: Accounts -->
+    <div class="tutorial-slide" id="tut-1">
+      <div class="tut-illus">
+        <div class="tut-illus-inner">
+          <div class="tut-blob" style="background:var(--purple)"></div>
+          <div class="tut-icon-ring" style="background:rgba(175,82,222,0.25)">
+            <span class="material-symbols-rounded">account_balance_wallet</span>
+          </div>
+          <div class="tut-chip tut-chip-1" style="top:10px;right:-10px;background:rgba(0,122,255,0.18);color:var(--blue)">
+            <span class="material-symbols-rounded">credit_card</span>Kreditkarte
+          </div>
+          <div class="tut-chip tut-chip-2" style="bottom:20px;left:-15px;background:rgba(52,199,89,0.18);color:var(--green)">
+            <span class="material-symbols-rounded">savings</span>Sparkonto
+          </div>
+          <div class="tut-chip tut-chip-3" style="top:55px;left:-25px;background:rgba(255,149,0,0.18);color:var(--orange)">
+            <span class="material-symbols-rounded">swap_horiz</span>Transfer
+          </div>
+        </div>
+      </div>
+      <div class="tut-text">
+        <div class="tut-step-label">Schritt 1 von 4</div>
+        <div class="tut-title">Mehrere Konten</div>
+        <div class="tut-desc">Lege beliebig viele Konten an — Girokonto, Sparkasse, Bargeld. Sende Geld zwischen Konten und wische durch alle Salden auf der Übersicht.</div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Add transaction -->
+    <div class="tutorial-slide" id="tut-2">
+      <div class="tut-illus">
+        <div class="tut-illus-inner">
+          <div class="tut-blob" style="background:var(--green)"></div>
+          <div class="tut-icon-ring" style="background:rgba(52,199,89,0.25)">
+            <span class="material-symbols-rounded">add_circle</span>
+          </div>
+          <!-- Mock numpad mini -->
+          <div class="tut-chip tut-chip-1" style="top:8px;right:-5px;background:rgba(255,59,48,0.18);color:var(--red)">
+            <span class="material-symbols-rounded">arrow_downward</span>Ausgabe
+          </div>
+          <div class="tut-chip tut-chip-2" style="bottom:25px;right:-10px;background:rgba(52,199,89,0.18);color:var(--green)">
+            <span class="material-symbols-rounded">arrow_upward</span>Einnahme
+          </div>
+          <div class="tut-chip tut-chip-3" style="bottom:10px;left:-20px;background:rgba(0,122,255,0.18);color:var(--blue)">
+            <span class="material-symbols-rounded">swap_horiz</span>Transfer
+          </div>
+        </div>
+      </div>
+      <div class="tut-text">
+        <div class="tut-step-label">Schritt 2 von 4</div>
+        <div class="tut-title">Einträge hinzufügen</div>
+        <div class="tut-desc">Tippe auf das <strong style="color:var(--blue)">+</strong> in der Mitte unten. Wähle Ausgabe, Einnahme oder Transfer, gib den Betrag ein und wähle eine Kategorie.</div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Recurring -->
+    <div class="tutorial-slide" id="tut-3">
+      <div class="tut-illus">
+        <div class="tut-illus-inner">
+          <div class="tut-blob" style="background:var(--purple)"></div>
+          <div class="tut-icon-ring" style="background:rgba(175,82,222,0.25)">
+            <span class="material-symbols-rounded">repeat</span>
+          </div>
+          <div class="tut-chip tut-chip-1" style="top:12px;right:-8px;background:rgba(175,82,222,0.18);color:var(--purple)">
+            <span class="material-symbols-rounded">calendar_month</span>Monatlich
+          </div>
+          <div class="tut-chip tut-chip-2" style="bottom:20px;left:-18px;background:rgba(175,82,222,0.18);color:var(--purple)">
+            <span class="material-symbols-rounded">sunny</span>Täglich
+          </div>
+          <div class="tut-chip tut-chip-3" style="top:60px;left:-28px;background:rgba(175,82,222,0.18);color:var(--purple)">
+            <span class="material-symbols-rounded">event_repeat</span>Jährlich
+          </div>
+        </div>
+      </div>
+      <div class="tut-text">
+        <div class="tut-step-label">Schritt 3 von 4</div>
+        <div class="tut-title">Daueraufträge</div>
+        <div class="tut-desc">Richte wiederkehrende Einträge ein — z.B. Miete monatlich oder Netflix wöchentlich. Penny bucht sie automatisch, auch wenn du die App eine Zeit nicht geöffnet hast.</div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Budget -->
+    <div class="tutorial-slide" id="tut-4">
+      <div class="tut-illus">
+        <div class="tut-illus-inner">
+          <div class="tut-blob" style="background:var(--orange)"></div>
+          <div class="tut-icon-ring" style="background:rgba(255,149,0,0.25)">
+            <span class="material-symbols-rounded">donut_large</span>
+          </div>
+          <div class="tut-chip tut-chip-1" style="top:10px;right:-12px;background:rgba(52,199,89,0.18);color:var(--green)">
+            <span class="material-symbols-rounded">check_circle</span>Im Limit
+          </div>
+          <div class="tut-chip tut-chip-2" style="bottom:15px;left:-20px;background:rgba(255,59,48,0.18);color:var(--red)">
+            <span class="material-symbols-rounded">warning</span>Überzogen
+          </div>
+          <div class="tut-chip tut-chip-3" style="top:65px;left:-25px;background:rgba(255,149,0,0.18);color:var(--orange)">
+            <span class="material-symbols-rounded">pie_chart</span>75%
+          </div>
+        </div>
+      </div>
+      <div class="tut-text">
+        <div class="tut-step-label">Schritt 4 von 4</div>
+        <div class="tut-title">Budget & Auswertung</div>
+        <div class="tut-desc">Setze Budgets pro Konto und Kategorie. Penny zeigt dir Sparquote, tägliche Ausgaben und Diagramme — für jeden Monat und jedes Konto einzeln.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tutorial-footer">
+    <div class="tut-dots" id="tut-dots">
+      <div class="tut-dot active"></div>
+      <div class="tut-dot"></div>
+      <div class="tut-dot"></div>
+      <div class="tut-dot"></div>
+      <div class="tut-dot"></div>
+    </div>
+    <div class="tut-btn-row">
+      <button class="tut-btn-back" id="tut-back-btn" onclick="tutStep(-1)" style="display:none">
+        <span class="material-symbols-rounded">arrow_back</span>
+      </button>
+      <button class="tut-btn-next" id="tut-next-btn" onclick="tutStep(1)" style="background:var(--blue)">
+        Weiter
+      </button>
     </div>
   </div>
 </div>
@@ -1453,6 +1996,7 @@ function saveBudgetEdit(accId){
 function renderSettings(){
   document.getElementById('settings-count').textContent=transactions.length;
   document.getElementById('settings-cat-count').textContent=CATS.length;
+  renderApiKeyStatus();
   const el=document.getElementById('accounts-list-settings');
   if(!el)return;
   el.innerHTML=ACCOUNTS.map((acc,i)=>`<div class="settings-row" onclick="openAccountPicker('${acc.id}')">
@@ -2154,6 +2698,471 @@ function resetData(){
 }
 
 /* ══════════════════════════════
+   API KEY
+══════════════════════════════ */
+const API_KEY_STORAGE='penny_anthropic_key';
+
+function getApiKey(){return localStorage.getItem(API_KEY_STORAGE)||'';}
+function saveApiKey(){
+  const val=document.getElementById('api-key-field').value.trim();
+  if(!val){showToast('Bitte Key eingeben','error');return;}
+  localStorage.setItem(API_KEY_STORAGE,val);
+  closeApiKeySheet();renderApiKeyStatus();
+  showToast('API-Key gespeichert','key');
+}
+function clearApiKey(){
+  if(!confirm('API-Key löschen?'))return;
+  localStorage.removeItem(API_KEY_STORAGE);
+  document.getElementById('api-key-field').value='';
+  closeApiKeySheet();renderApiKeyStatus();
+  showToast('API-Key entfernt','delete');
+}
+function openApiKeySheet(){
+  document.getElementById('api-key-field').value=getApiKey();
+  document.getElementById('api-key-overlay').classList.add('visible');
+  document.getElementById('api-key-sheet').classList.add('open');
+  setTimeout(()=>document.getElementById('api-key-field').focus(),400);
+}
+function closeApiKeySheet(){
+  document.getElementById('api-key-overlay').classList.remove('visible');
+  document.getElementById('api-key-sheet').classList.remove('open');
+}
+function renderApiKeyStatus(){
+  const el=document.getElementById('api-key-status');
+  if(!el)return;
+  const key=getApiKey();
+  el.textContent=key?'✓ Gesetzt':'Nicht gesetzt';
+  el.style.color=key?'var(--green)':'var(--txt3)';
+}
+
+/* ══════════════════════════════
+   SCANNER
+══════════════════════════════ */
+let scanMode='photo'; // 'photo' | 'barcode' | 'upload'
+let scanStream=null;
+let barcodeDetector=null;
+let barcodeInterval=null;
+let scanResult=null; // {amount, merchant, date, category}
+let scanPhotoBase64=null;
+
+// Supported BarcodeDetector formats
+const BARCODE_FORMATS=['ean_13','ean_8','qr_code','code_128','code_39','upc_a','upc_e','data_matrix'];
+
+function openScanSheet(){
+  scanResult=null;scanPhotoBase64=null;
+  document.getElementById('scan-overlay').classList.add('visible');
+  document.getElementById('scan-sheet').classList.add('open');
+  setScanMode('photo');
+}
+
+function closeScanSheet(){
+  stopCamera();
+  document.getElementById('scan-overlay').classList.remove('visible');
+  document.getElementById('scan-sheet').classList.remove('open');
+  resetScanUI();
+}
+
+function setScanMode(mode){
+  scanMode=mode;
+  stopCamera();resetScanUI();
+  // Tab UI
+  ['photo','barcode','upload'].forEach(m=>{
+    document.getElementById('scan-tab-'+m).classList.toggle('active',m===mode);
+  });
+  const hasKey=!!getApiKey();
+  const banner=document.getElementById('scan-api-banner');
+
+  if(mode==='barcode'){
+    banner.style.display='none';
+    startBarcodeScanner();
+    setScanHint('Halte den Barcode in das Bild');
+    renderScanActions([{label:'Abbrechen',icon:'close',action:'closeScanSheet()',style:'background:var(--surface2);color:var(--txt);border:1.5px solid var(--border)'}]);
+  } else if(mode==='upload'){
+    banner.style.display=hasKey?'none':'flex';
+    setScanHint('Wähle ein Foto aus der Galerie');
+    renderScanActions([{label:'Galerie öffnen',icon:'image',action:'document.getElementById("scan-file-input").click()',style:'background:var(--blue);color:#fff'}]);
+  } else {
+    // photo mode
+    banner.style.display=hasKey?'none':'flex';
+    setScanHint('Fotografiere den Kassenbon');
+    startPhotoCamera();
+    renderScanActions([{label:'Foto aufnehmen',icon:'photo_camera',action:'capturePhoto()',style:'background:var(--blue);color:#fff'}]);
+  }
+}
+
+function setScanHint(txt){document.getElementById('scan-hint').textContent=txt;}
+
+function renderScanActions(btns){
+  document.getElementById('scan-actions').innerHTML=btns.map(b=>`
+    <button class="scan-action-btn" style="${b.style}" onclick="${b.action}">
+      <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1">${b.icon}</span>${b.label}
+    </button>`).join('');
+}
+
+function resetScanUI(){
+  scanResult=null;scanPhotoBase64=null;
+  document.getElementById('scan-viewfinder').style.display='none';
+  document.getElementById('scan-photo-preview').style.display='none';
+  document.getElementById('scan-result-card').classList.remove('visible');
+  document.getElementById('src-amount-edit').style.display='none';
+  document.getElementById('scan-hint').textContent='';
+}
+
+/* ── Camera for photo mode ── */
+async function startPhotoCamera(){
+  document.getElementById('scan-viewfinder').style.display='block';
+  document.getElementById('scan-viewfinder').style.height='240px';
+  // remove dim overlay for photo mode — show full frame
+  document.querySelector('.scan-dim').style.display='none';
+  try{
+    scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}},audio:false});
+    document.getElementById('scan-video').srcObject=scanStream;
+  }catch(e){
+    setScanHint('Kamera nicht verfügbar — nutze Galerie');
+    document.getElementById('scan-viewfinder').style.display='none';
+    renderScanActions([{label:'Galerie öffnen',icon:'image',action:'document.getElementById("scan-file-input").click()',style:'background:var(--blue);color:#fff'}]);
+  }
+}
+
+async function capturePhoto(){
+  const video=document.getElementById('scan-video');
+  if(!video.srcObject&&!scanPhotoBase64){
+    // No camera — open file picker
+    document.getElementById('scan-file-input').click();return;
+  }
+  const canvas=document.createElement('canvas');
+  canvas.width=video.videoWidth||1280;
+  canvas.height=video.videoHeight||720;
+  canvas.getContext('2d').drawImage(video,0,0);
+  const dataUrl=canvas.toDataURL('image/jpeg',0.85);
+  scanPhotoBase64=dataUrl.split(',')[1];
+  showPhotoAndAnalyze(dataUrl);
+}
+
+function onScanFileSelected(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const dataUrl=e.target.result;
+    scanPhotoBase64=dataUrl.split(',')[1];
+    showPhotoAndAnalyze(dataUrl);
+  };
+  reader.readAsDataURL(file);
+  event.target.value='';
+}
+
+function showPhotoAndAnalyze(dataUrl){
+  stopCamera();
+  document.getElementById('scan-viewfinder').style.display='none';
+  const preview=document.getElementById('scan-photo-preview');
+  preview.style.display='block';
+  document.getElementById('scan-photo-img').src=dataUrl;
+  document.getElementById('scan-analyzing-overlay').classList.remove('hidden');
+  setScanHint('KI analysiert den Kassenbon…');
+  renderScanActions([]);
+  analyzeWithClaude(scanPhotoBase64);
+}
+
+/* ── Claude Vision Analysis ── */
+async function analyzeWithClaude(base64){
+  const apiKey=getApiKey();
+  if(!apiKey){
+    document.getElementById('scan-analyzing-overlay').classList.add('hidden');
+    setScanHint('Kein API-Key. Bitte in Einstellungen hinterlegen.');
+    renderScanActions([{label:'Einstellungen',icon:'settings',action:'closeScanSheet();switchPage("settings")',style:'background:var(--blue);color:#fff'}]);
+    return;
+  }
+
+  const catNames=CATS.map(c=>c.name).join(', ')||'Sonstiges';
+  const prompt=`Du analysierst einen Kassenbon. Extrahiere folgende Informationen und antworte NUR mit validem JSON:
+{
+  "amount": <Gesamtbetrag als Zahl, z.B. 24.99>,
+  "merchant": "<Händlername>",
+  "date": "<Datum im Format DD.MM.YYYY oder null>",
+  "category": "<passendste Kategorie aus: ${catNames} — oder 'Sonstiges'>",
+  "items": ["<wichtigste Artikel, max 3>"]
+}
+Wenn du den Betrag nicht sicher erkennst, schätze ihn. Antworte nur mit dem JSON-Objekt.`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-opus-4-5',
+        max_tokens:512,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},
+          {type:'text',text:prompt}
+        ]}]
+      })
+    });
+
+    if(!resp.ok){
+      const err=await resp.json();
+      throw new Error(err.error?.message||'API Fehler '+resp.status);
+    }
+
+    const data=await resp.json();
+    const raw=data.content.find(b=>b.type==='text')?.text||'{}';
+    // Strip markdown code fences if present
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+
+    scanResult={
+      amount:parseFloat(parsed.amount)||0,
+      merchant:parsed.merchant||'—',
+      date:parsed.date||null,
+      category:matchCategory(parsed.category),
+      items:parsed.items||[]
+    };
+    showScanResult();
+  }catch(e){
+    console.error('Claude error:',e);
+    document.getElementById('scan-analyzing-overlay').classList.add('hidden');
+    setScanHint('Fehler: '+e.message);
+    renderScanActions([
+      {label:'Erneut versuchen',icon:'refresh',action:'analyzeWithClaude(scanPhotoBase64)',style:'background:var(--blue);color:#fff'},
+      {label:'Manuell',icon:'edit',action:'openManualFromScan()',style:'background:var(--surface2);color:var(--txt);border:1.5px solid var(--border)'}
+    ]);
+  }
+}
+
+function matchCategory(name){
+  if(!name||CATS.length===0)return CATS[0]?.id||null;
+  const lower=name.toLowerCase();
+  const found=CATS.find(c=>c.name.toLowerCase().includes(lower)||lower.includes(c.name.toLowerCase()));
+  return found?.id||CATS[0]?.id||null;
+}
+
+function showScanResult(){
+  document.getElementById('scan-analyzing-overlay').classList.add('hidden');
+  const r=scanResult;
+  document.getElementById('src-amount').textContent=r.amount>0?`€${fmt(r.amount)}`:'Nicht erkannt';
+  document.getElementById('src-merchant').textContent=r.merchant||'—';
+  document.getElementById('src-date').textContent=r.date||'—';
+  const cat=getCat(r.category);
+  document.getElementById('src-cat').innerHTML=r.category
+    ?`<span style="display:inline-flex;align-items:center;gap:5px"><span class="material-symbols-rounded" style="font-size:14px;color:${cat.colorVal};font-variation-settings:'FILL' 1">${cat.icon}</span>${cat.name}</span>`
+    :'Sonstiges';
+  document.getElementById('scan-result-card').classList.add('visible');
+  setScanHint(r.items.length>0?`Artikel: ${r.items.slice(0,3).join(', ')}`:'Kassenbon erkannt ✓');
+  renderScanActions([
+    {label:'Als Ausgabe buchen',icon:'add_circle',action:'bookScanResult()',style:'background:var(--red);color:#fff'},
+    {label:'Bearbeiten',icon:'edit',action:'openManualFromScan()',style:'background:var(--surface2);color:var(--txt);border:1.5px solid var(--border)'}
+  ]);
+}
+
+function editScanResult(){
+  const edit=document.getElementById('src-amount-edit');
+  edit.style.display=edit.style.display==='none'?'block':'none';
+  if(edit.style.display==='block'){
+    document.getElementById('src-amount-input').value=scanResult?.amount||'';
+    document.getElementById('src-amount-input').focus();
+  }
+}
+
+function bookScanResult(){
+  if(!scanResult)return;
+  // Apply edited amount if field is open
+  const editField=document.getElementById('src-amount-input');
+  if(document.getElementById('src-amount-edit').style.display!=='none'&&editField.value){
+    scanResult.amount=parseFloat(editField.value)||scanResult.amount;
+  }
+  if(!scanResult.amount||scanResult.amount<=0){showToast('Betrag fehlt — bitte bearbeiten','error');return;}
+
+  // Parse date
+  let txnDate=new Date();
+  if(scanResult.date){
+    const parts=scanResult.date.split('.');
+    if(parts.length===3){
+      const d=new Date(parseInt(parts[2]),parseInt(parts[1])-1,parseInt(parts[0]));
+      if(!isNaN(d.getTime()))txnDate=d;
+    }
+  }
+
+  const accId=carouselIndex>0?ACCOUNTS[carouselIndex-1].id:ACCOUNTS[0].id;
+  transactions.push({
+    id:Date.now().toString(),
+    type:'expense',
+    amount:scanResult.amount,
+    category:scanResult.category||CATS[0]?.id||null,
+    accountId:accId,
+    date:txnDate.toISOString(),
+    recur:null,
+    note:scanResult.merchant?`${scanResult.merchant} (Scan)`:undefined
+  });
+  save();
+  closeScanSheet();
+  renderDash();
+  showToast(`−€${fmt(scanResult.amount)} gebucht`,'receipt');
+}
+
+function openManualFromScan(){
+  // Pre-fill the add sheet with scan data then close scanner
+  closeScanSheet();
+  setTimeout(()=>{
+    openAddSheet();
+    if(scanResult?.amount){
+      amountStr=scanResult.amount.toFixed(2).replace('.','').replace(/^0+/,'');
+      // remove trailing zeros from cents if whole number
+      amountStr=String(scanResult.amount);
+      updateAmountDisplay();
+    }
+    if(scanResult?.category)selectedCat=scanResult.category;
+    setType('expense');renderCatGrid();
+  },400);
+}
+
+/* ── Barcode Scanner ── */
+async function startBarcodeScanner(){
+  document.getElementById('scan-viewfinder').style.display='block';
+  document.getElementById('scan-viewfinder').style.height='260px';
+  document.querySelector('.scan-dim').style.display='block';
+  // Check BarcodeDetector support
+  if(!('BarcodeDetector' in window)){
+    setScanHint('Barcode-Erkennung nicht unterstützt. Bitte Foto nutzen.');
+    document.getElementById('scan-viewfinder').style.display='none';
+    return;
+  }
+  try{
+    barcodeDetector=new BarcodeDetector({formats:BARCODE_FORMATS});
+    scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+    const video=document.getElementById('scan-video');
+    video.srcObject=scanStream;
+    await video.play();
+    barcodeInterval=setInterval(()=>detectBarcode(video),400);
+  }catch(e){
+    setScanHint('Kamera nicht verfügbar');
+    document.getElementById('scan-viewfinder').style.display='none';
+  }
+}
+
+async function detectBarcode(video){
+  if(!barcodeDetector||!video.readyState)return;
+  try{
+    const barcodes=await barcodeDetector.detect(video);
+    if(barcodes.length>0){
+      const code=barcodes[0].rawValue;
+      clearInterval(barcodeInterval);barcodeInterval=null;
+      handleBarcodeResult(code);
+    }
+  }catch(e){}
+}
+
+function handleBarcodeResult(code){
+  stopCamera();
+  document.getElementById('scan-viewfinder').style.display='none';
+  setScanHint(`Barcode erkannt: ${code}`);
+  // For EAN/product codes we can't look up price without an API
+  // Show result with code and ask user to enter amount manually
+  scanResult={amount:0,merchant:code,date:null,category:CATS[0]?.id||null,items:[]};
+  document.getElementById('src-amount').textContent='Bitte eingeben';
+  document.getElementById('src-merchant').textContent=code;
+  document.getElementById('src-date').textContent=new Date().toLocaleDateString('de-DE');
+  const cat=getCat(scanResult.category);
+  document.getElementById('src-cat').textContent=cat.name||'—';
+  document.getElementById('scan-result-card').classList.add('visible');
+  document.getElementById('src-amount-edit').style.display='block';
+  document.getElementById('src-amount-input').value='';
+  renderScanActions([
+    {label:'Als Ausgabe buchen',icon:'add_circle',action:'bookScanResult()',style:'background:var(--red);color:#fff'},
+    {label:'Neu scannen',icon:'refresh',action:'setScanMode("barcode")',style:'background:var(--surface2);color:var(--txt);border:1.5px solid var(--border)'}
+  ]);
+}
+
+function stopCamera(){
+  if(barcodeInterval){clearInterval(barcodeInterval);barcodeInterval=null;}
+  if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null;}
+  document.querySelector('.scan-dim').style.display='block';
+}
+
+/* ══════════════════════════════
+   TUTORIAL
+══════════════════════════════ */
+const TUTORIAL_KEY='penny_tutorial_done';
+const TUT_TOTAL=5;
+let tutCurrent=0;
+
+const TUT_COLORS=['#007AFF','#AF52DE','#34C759','#AF52DE','#FF9500'];
+const TUT_NEXT_LABELS=['Los geht\'s!','Weiter','Weiter','Weiter','Fertig 🎉'];
+
+function initTutorial(){
+  if(localStorage.getItem(TUTORIAL_KEY)==='1')return;
+  // First time — show tutorial
+  const overlay=document.getElementById('tutorial-overlay');
+  overlay.classList.add('visible');
+  tutCurrent=0;
+  renderTutStep();
+  // Touch swipe support
+  let tx=0,ty=0;
+  overlay.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  overlay.addEventListener('touchend',e=>{
+    const dx=tx-e.changedTouches[0].clientX;
+    const dy=Math.abs(ty-e.changedTouches[0].clientY);
+    if(Math.abs(dx)>50&&dy<80){
+      if(dx>0&&tutCurrent<TUT_TOTAL-1)tutStep(1);
+      else if(dx<0&&tutCurrent>0)tutStep(-1);
+    }
+  },{passive:true});
+}
+
+function renderTutStep(){
+  // Update slide visibility
+  document.querySelectorAll('.tutorial-slide').forEach((s,i)=>{
+    s.classList.remove('active','exit-left');
+    if(i===tutCurrent)s.classList.add('active');
+    else if(i<tutCurrent)s.classList.add('exit-left');
+  });
+  // Dots
+  document.querySelectorAll('.tut-dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===tutCurrent);
+    d.style.background=i===tutCurrent?TUT_COLORS[tutCurrent]:'';
+  });
+  // Next button
+  const nextBtn=document.getElementById('tut-next-btn');
+  nextBtn.textContent=TUT_NEXT_LABELS[tutCurrent]||'Weiter';
+  nextBtn.style.background=TUT_COLORS[tutCurrent];
+  // Back button
+  const backBtn=document.getElementById('tut-back-btn');
+  backBtn.style.display=tutCurrent>0?'flex':'none';
+  // Skip visibility — hide on last slide
+  document.querySelector('.tutorial-skip').style.display=tutCurrent===TUT_TOTAL-1?'none':'block';
+}
+
+function tutStep(dir){
+  const next=tutCurrent+dir;
+  if(next>=TUT_TOTAL){
+    finishTutorial();return;
+  }
+  if(next<0)return;
+  tutCurrent=next;
+  renderTutStep();
+}
+
+function skipTutorial(){finishTutorial();}
+
+function finishTutorial(){
+  localStorage.setItem(TUTORIAL_KEY,'1');
+  const overlay=document.getElementById('tutorial-overlay');
+  overlay.style.opacity='0';
+  overlay.style.pointerEvents='none';
+  setTimeout(()=>overlay.classList.remove('visible'),400);
+  // If no categories yet, prompt to create one
+  if(CATS.length===0){
+    setTimeout(()=>{
+      switchPage('settings');
+      showToast('Lege zuerst Kategorien an','category');
+    },500);
+  }
+}
+
+/* ══════════════════════════════
    INIT
 ══════════════════════════════ */
 // Migrate old txns that have no accountId
@@ -2164,6 +3173,10 @@ save();
 const hadNewRecurring=processDueRecurring();
 
 renderDash();
+renderApiKeyStatus();
+
+// Show tutorial on first open
+initTutorial();
 
 // Show toast after a short delay so the UI is ready
 if(hadNewRecurring){
